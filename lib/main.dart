@@ -33,17 +33,20 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: FutureBuilder<String>(
-        future: VersionUtils.getVersion(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-            } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            } else {
-              return Text('Version: ${snapshot.data}');
-            }
-          }
+        child: Row(
+          children: [FutureBuilder<String>(
+            future: VersionUtils.getVersion(),
+              builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                return Text('Version: ${snapshot.data}');
+              }
+            },
+          ),
+          Text('변경점 확인?')],
         ),
       ),
     );
