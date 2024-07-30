@@ -15,8 +15,10 @@ jobs:
 
       - name: Install yq
         run: |
-          sudo apt-get update
-          sudo apt-get install -y yq
+          # Download yq binary
+          YQ_VERSION=v4.17.3  # 원하는 버전을 선택
+          wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -O /usr/local/bin/yq
+          chmod +x /usr/local/bin/yq
 
       - name: Extract version from pubspec.yaml
         id : get_version
