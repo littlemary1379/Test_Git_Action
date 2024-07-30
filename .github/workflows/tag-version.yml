@@ -26,7 +26,7 @@ jobs:
 
       - name: Create new tag
         env:
-          GITHUB_TOKEN: ${{ secret.GITHUBTOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
         run: |
           # Check which branch is being pushed to
           if [ "${GITHUB_REF#refs/heads/}" == "main" ]; then
