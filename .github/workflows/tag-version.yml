@@ -16,7 +16,7 @@ jobs:
       - name: Install yq
         run: |
           # Download yq binary
-          YQ_VERSION=v4.17.3  # 원하는 버전을 선택
+          YQ_VERSION=v4.33.2  # 원하는 버전을 선택
           wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -O /usr/local/bin/yq
           chmod +x /usr/local/bin/yq
 
