@@ -31,11 +31,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Check which branch is being pushed to
-          if [ "${GITHUB_REF#refs/heads/}" == "main" ]; then
-            git tag "v${{ env.VERSION }}-main"
-          elif [ "${GITHUB_REF#refs/heads/}" == "dev" ]; then
-            git tag "v${{ env.VERSION }}-dev"
-          else
-            git tag "v${{ env.VERSION }}-other"
-          fi
+          git tag "v${{ env.VERSION }}-dev"
           git push origin --tags
