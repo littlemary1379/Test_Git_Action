@@ -1,0 +1,39 @@
+name: Taging Version Code
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check code
+        uses: actions/checkout@v3
+
+      - name: Install yq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y yq
+
+      - name: Extract version from pubspec.yaml
+        id : get_version
+        run: |
+          VERSION=$(yq eval '.version' pubspec.yaml)
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
+      - name: Create new tag
+        env:
+          GITHUB_TOKEN: ${{ secret.GITHUBTOKEN }}
+        run: |
+          # Check which branch is being pushed to
+          if [ "${GITHUB_REF#refs/heads/}" == "main" ]; then
+            git tag "v${{ env.VERSION }}-main"
+          elif [ "${GITHUB_REF#refs/heads/}" == "dev" ]; then
+            git tag "v${{ env.VERSION }}-dev"
+          else
+            git tag "v${{ env.VERSION }}-other"
+          fi
+          git push origin --tags
