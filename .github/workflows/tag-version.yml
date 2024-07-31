@@ -22,21 +22,15 @@ jobs:
           wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -O /usr/local/bin/yq
           chmod +x /usr/local/bin/yq
 
-      - name: Extract version from pubspec.yaml
-        id : get_version
-        run: |
-          VERSION=$(yq eval '.version' pubspec.yaml)
-          echo "VERSION=${VERSION}" >> $GITHUB_ENV
-
       - name: Create new tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Check version 
-          PREVIOUS_VERSION=$(git show HEAD~1:pubspec.yaml | jq -r .version)
-          CURRENT_VERSION=$(jq -r .version pubspec.yaml)
+          PREVIOUS_VERSION=$(git show HEAD~1:pubspec.yaml | yq eval '.version')
+          CURRENT_VERSION=$(yq eval '.version' pubspec.yaml)
           
           if [[ "$PREVIOUS_VERSION" == "$CURRENT_VERSION" ]]; then
             echo "version="
-            git tag "v${{ env.VERSION }}-dev"
+            git tag "v${{ CURRENT_VERSION }}-dev"
             git push origin --tags
