@@ -46,7 +46,7 @@ class MainPage extends StatelessWidget {
               }
             },
           ),
-          Text('변경점 확인?')],
+          Text('변경점 확인? 1.0.0+2')],
         ),
       ),
     );
