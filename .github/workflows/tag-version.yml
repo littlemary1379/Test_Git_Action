@@ -41,6 +41,6 @@ jobs:
             echo "version same"
           else
             echo "version change"
-            # git tag "v${CURRENT_VERSION}-dev"
-            # git push origin --tags
+            git tag "v${CURRENT_VERSION}-dev"
+            git push origin --tags
           fi
