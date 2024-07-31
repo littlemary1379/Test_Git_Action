@@ -36,3 +36,4 @@ jobs:
             echo "version change"
             git tag "v${CURRENT_VERSION}-dev"
             git push origin --tags
+          fi
