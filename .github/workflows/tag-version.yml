@@ -31,6 +31,8 @@ jobs:
           CURRENT_VERSION=$(yq eval '.version' pubspec.yaml)
           
           if [[ "$PREVIOUS_VERSION" == "$CURRENT_VERSION" ]]; then
-            echo "version="
-            git tag "v${{ "$CURRENT_VERSION" }}-dev"
+            echo "version same"
+          else
+            echo "version change"
+            git tag "v${CURRENT_VERSION}-dev"
             git push origin --tags
