@@ -33,6 +33,9 @@ jobs:
           echo "PREVIOUS_VERSION_CODE: $PREVIOUS_VERSION_CODE"
           
           CURRENT_VERSION_RAW=$(yq eval '.version' pubspec.yaml)
+          IFS='+' read -r CURRENT_VERSION CURRENT_VERSION_CODE <<< "$CURRENT_VERSION_RAW"
+          echo "CURRENT_VERSION: $CURRENT_VERSION"
+          echo "CURRENT_VERSION_CODE: $CURRENT_VERSION_CODE"
           
           if [[ "$PREVIOUS_VERSION" == "$CURRENT_VERSION" ]]; then
             echo "version same"
